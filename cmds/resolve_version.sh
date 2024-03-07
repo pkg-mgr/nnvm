@@ -20,9 +20,10 @@ if [[ -z "${1:-}" ]]; then
 fi
 
 # check if exact/semantic version is specified
-if [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+([-.\w]*)$ ]]; then
-  # matches `6.32.4` or `7.0.0-rc.0`
-  echo "$1"
+if [[ $1 =~ ^v?[0-9]+\.[0-9]+\.[0-9]+([-.\w]*)$ ]]; then
+  # matches `6.32.4` or `v6.32.0` or `7.0.0-rc.0`
+  # remove the leading "v" if it exists:
+  echo "${1#v}"
   exit 0
 fi
 
