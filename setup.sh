@@ -7,7 +7,7 @@ set -u # exit on unset variables
 base_dir="$HOME/.nnvm"
 cmds_dir="$base_dir/cmds"
 cmd_list="cmd default help install list nuke run uninstall unuse update update_versions use resolve_version"
-NUKE_node=${NUKE_node:-0}
+NUKE_NODE=${NUKE_NODE:-0}
 
 ensure_dir() {
   if [ ! -d "$1" ]; then
@@ -16,17 +16,25 @@ ensure_dir() {
   fi
 }
 
-if [ "$NUKE_node" -eq 1 ]; then
-  echo Optional node uninstall requested, removing any existing node installations...
+remove_which() {
+  remove_cmd=$1
+  echo "Removing previously installed $remove_cmd..."
   while true; do
-    if node_path=$(which node 2>/dev/null); then
-      echo "Deleting $node_path"
-      rm "$node_path"
+    if remove_path=$(which "$remove_cmd" 2>/dev/null); then
+      echo "Deleting $remove_path"
+      rm "$remove_path"
     else
-      echo "node not found"
+      echo "$remove_cmd removed."
       break
     fi
   done
+}
+
+if [ "$NUKE_NODE" -eq 1 ]; then
+  echo Optional node uninstall requested, removing any existing node installations...
+  remove_which node
+  remove_which npm
+  remove_which npx
 fi
 
 # Detect setup method, local or github:
