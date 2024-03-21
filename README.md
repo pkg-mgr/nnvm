@@ -21,8 +21,10 @@ curl -H 'Cache-Control: no-cache' -o- https://raw.githubusercontent.com/pkg-mgr/
 
 Alternately, to auto-remove any existing node installation before installing:
 ```sh
-curl -H 'Cache-Control: no-cache' -o- https://raw.githubusercontent.com/pkg-mgr/nnvm/main/setup.sh | NUKE_node=1 bash
+curl -H 'Cache-Control: no-cache' -o- https://raw.githubusercontent.com/pkg-mgr/nnvm/main/setup.sh | NUKE_NODE=1 bash
 ```
+
+This removes any existing node, npm and npx commands.
 
 ## Uninstalling
 
